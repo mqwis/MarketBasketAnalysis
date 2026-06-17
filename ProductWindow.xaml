@@ -1,0 +1,64 @@
+﻿<Window x:Class="MarketBasketAnalysis.ProductWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Данные товара" 
+        Height="490" Width="400"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="#F8FAFC">
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="TxtWinTitle" Grid.Row="0" Text="Добавление товара" FontSize="20" FontWeight="Bold" Foreground="#0F172A" Margin="0,0,0,20"/>
+
+        <StackPanel Grid.Row="1">
+            <TextBlock Text="Название товара" Foreground="#64748B" FontSize="12" FontWeight="Medium" Margin="0,0,0,6"/>
+            <Border Background="White" CornerRadius="6" BorderBrush="#E2E8F0" BorderThickness="1" Padding="8,6" Margin="0,0,0,16">
+                <TextBox x:Name="TbName" BorderThickness="0" Background="Transparent" FontSize="14" Foreground="#334155"/>
+            </Border>
+
+            <TextBlock Text="Категория" Foreground="#64748B" FontSize="12" FontWeight="Medium" Margin="0,0,0,6"/>
+            <Border Background="White" CornerRadius="6" BorderBrush="#E2E8F0" BorderThickness="1" Padding="4,4" Margin="0,0,0,16">
+                <ComboBox x:Name="CbCategory" BorderThickness="0" Background="Transparent" FontSize="14" Foreground="#334155"
+                          SelectionChanged="CbCategory_SelectionChanged"/>
+            </Border>
+
+            <TextBlock Text="Подкатегория" Foreground="#64748B" FontSize="12" FontWeight="Medium" Margin="0,0,0,6"/>
+            <Border Background="White" CornerRadius="6" BorderBrush="#E2E8F0" BorderThickness="1" Padding="4,4" Margin="0,0,0,16">
+                <ComboBox x:Name="CbSubCategory" BorderThickness="0" Background="Transparent" FontSize="14" Foreground="#334155"/>
+            </Border>
+
+            <Grid Margin="0,0,0,16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Цена (₽)" Foreground="#64748B" FontSize="12" FontWeight="Medium" Margin="0,0,0,6"/>
+                    <Border Background="White" CornerRadius="6" BorderBrush="#E2E8F0" BorderThickness="1" Padding="8,6">
+                        <TextBox x:Name="TbPrice" BorderThickness="0" Background="Transparent" FontSize="14" Foreground="#334155"/>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="Количество на складе" Foreground="#64748B" FontSize="12" FontWeight="Medium" Margin="0,0,0,6"/>
+                    <Border Background="White" CornerRadius="6" BorderBrush="#E2E8F0" BorderThickness="1" Padding="8,6">
+                        <TextBox x:Name="TbStock" BorderThickness="0" Background="Transparent" FontSize="14" Foreground="#334155"/>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Content="Отмена" Click="Cancel_Click" Background="Transparent" BorderBrush="#E2E8F0" BorderThickness="1" Foreground="#64748B" Width="100" Height="36" Margin="0,0,12,0" Cursor="Hand"/>
+            <Button Content="Сохранить" Click="Save_Click" Background="#2563EB" Foreground="White" BorderThickness="0" Width="110" Height="36" FontWeight="SemiBold" Cursor="Hand"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,365 @@
+﻿<Window x:Class="MarketBasketAnalysis.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        Title="Анализ покупательских корзин" 
+        Height="720" Width="1150"
+        WindowStartupLocation="CenterScreen"
+        Background="#F8FAFC">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ЛЕВАЯ ПАНЕЛЬ НАВИГАЦИИ -->
+        <Border Grid.Column="0" Background="White" BorderBrush="#E2E8F0" BorderThickness="0,0,1,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="90"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="24,0">
+                    <iconPacks:PackIconMaterial Kind="Cart" Width="28" Height="28" Foreground="#2563EB" VerticalAlignment="Center"/>
+                    <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="Анализ корзин" FontSize="16" FontWeight="Bold" Foreground="#0F172A"/>
+                        <TextBlock Text="Моржано" FontSize="10" FontWeight="SemiBold" Foreground="#94A3B8"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Margin="12,10">
+                    <Button x:Name="MenuBtnMain" Click="NavigateToMain_Click" Height="45" Margin="0,2" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Margin="15,0">
+                            <iconPacks:PackIconMaterial Kind="Home" Width="20" Height="20" Foreground="#64748B"/>
+                            <TextBlock Text="Главная" Margin="12,0,0,0" VerticalAlignment="Center" FontSize="14" FontWeight="Medium" Foreground="#334155"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button x:Name="MenuBtnProducts" Click="NavigateToProducts_Click" Height="45" Margin="0,2" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Margin="15,0">
+                            <iconPacks:PackIconMaterial Kind="CubeOutline" Width="20" Height="20" Foreground="#64748B"/>
+                            <TextBlock Text="Товары" Margin="12,0,0,0" VerticalAlignment="Center" FontSize="14" FontWeight="Medium" Foreground="#334155"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button x:Name="MenuBtnTransactions" Click="NavigateToTransactions_Click" Height="45" Margin="0,2" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Margin="15,0">
+                            <iconPacks:PackIconMaterial Kind="FileDocumentOutline" Width="20" Height="20" Foreground="#64748B"/>
+                            <TextBlock Text="Покупки" Margin="12,0,0,0" VerticalAlignment="Center" FontSize="14" FontWeight="Medium" Foreground="#334155"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button x:Name="MenuBtnCustomers" Click="NavigateToCustomers_Click" Height="45" Margin="0,2" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Margin="15,0">
+                            <iconPacks:PackIconMaterial Kind="AccountGroupOutline" Width="20" Height="20" Foreground="#64748B"/>
+                            <TextBlock Text="Покупатели" Margin="12,0,0,0" VerticalAlignment="Center" FontSize="14" FontWeight="Medium" Foreground="#334155"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Border BorderBrush="#F1F5F9" BorderThickness="0,1,0,0" Margin="0,15,0,15"/>
+
+                    <Button x:Name="MenuBtnSettings" Click="NavigateToSettings_Click" Height="45" Margin="0,2" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Margin="15,0">
+                            <iconPacks:PackIconMaterial Kind="CogOutline" Width="20" Height="20" Foreground="#64748B"/>
+                            <TextBlock Text="Настройки" Margin="12,0,0,0" VerticalAlignment="Center" FontSize="14" FontWeight="Medium" Foreground="#334155"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button x:Name="MenuBtnAbout" Click="NavigateToAbout_Click" Height="45" Margin="0,2" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Margin="15,0">
+                            <iconPacks:PackIconMaterial Kind="InformationOutline" Width="20" Height="20" Foreground="#64748B"/>
+                            <TextBlock Text="О программе" Margin="12,0,0,0" VerticalAlignment="Center" FontSize="14" FontWeight="Medium" Foreground="#334155"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <TextBlock Grid.Row="2" Text="Версия 1.0.0" Foreground="#94A3B8" FontSize="11" HorizontalAlignment="Right" Margin="20"/>
+            </Grid>
+        </Border>
+
+        <!-- ОСНОВНАЯ РАБОЧАЯ ОБЛАСТЬ -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Верхняя панель (Шапка) -->
+            <Border Grid.Row="0" Background="#F8FAFC" Padding="30,0">
+                <Grid>
+                    <TextBlock x:Name="PageTitle" Text="Главная" FontSize="26" FontWeight="Bold" Foreground="#0F172A" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconMaterial Kind="AccountOutline" Width="22" Height="22" Foreground="#334155" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="UserRoleTextBlock" Text="Администратор" FontSize="14" FontWeight="Medium" Foreground="#334155" Margin="8,0,5,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Основной контейнер вкладок -->
+            <TabControl x:Name="MainTabControl" Grid.Row="1" Background="Transparent" BorderThickness="0" SelectionChanged="MainTabControl_SelectionChanged">
+                <TabControl.Resources>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </Style>
+                </TabControl.Resources>
+
+                <!-- ВКЛАДКА 1: ГЛАВНАЯ -->
+                <TabItem>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <Grid Margin="30,10,30,30">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Сводные карточки (Top Stats) -->
+                            <UniformGrid Grid.Row="0" Columns="3" Margin="0,0,0,25">
+                                <Border Background="White" CornerRadius="12" BorderBrush="#E2E8F0" BorderThickness="1" Margin="0,0,15,0" Padding="24">
+                                    <Grid>
+                                        <StackPanel>
+                                            <TextBlock Text="Всего покупок" Foreground="#64748B" FontSize="13" FontWeight="Medium"/>
+                                            <TextBlock x:Name="TxtTotalSales" Text="1 247" Foreground="#0F172A" FontSize="28" FontWeight="Bold" Margin="0,8,0,12"/>
+                                            <TextBlock Text="▲ +12 за неделю" Foreground="#10B981" FontSize="12" FontWeight="Medium"/>
+                                        </StackPanel>
+                                        <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="#EFF6FF" CornerRadius="8" Width="44" Height="44">
+                                            <iconPacks:PackIconMaterial Kind="CartOutline" Width="22" Height="22" Foreground="#2563EB" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+
+                                <Border Background="White" CornerRadius="12" BorderBrush="#E2E8F0" BorderThickness="1" Margin="10,0,10,0" Padding="24">
+                                    <Grid>
+                                        <StackPanel>
+                                            <TextBlock Text="Покупателей" Foreground="#64748B" FontSize="13" FontWeight="Medium"/>
+                                            <TextBlock x:Name="TxtTotalCustomers" Text="542" Foreground="#0F172A" FontSize="28" FontWeight="Bold" Margin="0,8,0,12"/>
+                                            <TextBlock Text="▲ +7 за неделю" Foreground="#10B981" FontSize="12" FontWeight="Medium"/>
+                                        </StackPanel>
+                                        <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="#EEF2F6" CornerRadius="8" Width="44" Height="44">
+                                            <iconPacks:PackIconMaterial Kind="AccountGroupOutline" Width="22" Height="22" Foreground="#475569" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+
+                                <Border Background="White" CornerRadius="12" BorderBrush="#E2E8F0" BorderThickness="1" Margin="15,0,0,0" Padding="24">
+                                    <Grid>
+                                        <StackPanel>
+                                            <TextBlock Text="Товаров" Foreground="#64748B" FontSize="13" FontWeight="Medium"/>
+                                            <TextBlock x:Name="TxtTotalProducts" Text="186" Foreground="#0F172A" FontSize="28" FontWeight="Bold" Margin="0,8,0,12"/>
+                                            <TextBlock Text="▲ +3 за неделю" Foreground="#10B981" FontSize="12" FontWeight="Medium"/>
+                                        </StackPanel>
+                                        <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="#EFF6FF" CornerRadius="8" Width="44" Height="44">
+                                            <iconPacks:PackIconMaterial Kind="CubeOutline" Width="22" Height="22" Foreground="#2563EB" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </UniformGrid>
+
+                            <!-- Таблицы активности на главной -->
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Левая карточка: Последние покупки -->
+                                <Border Grid.Column="0" Background="White" CornerRadius="12" BorderBrush="#E2E8F0" BorderThickness="1" Margin="0,0,15,0" Padding="20">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Row="0" Text="Последние покупки" FontSize="16" FontWeight="Bold" Foreground="#0F172A" Margin="0,0,0,15"/>
+
+                                        <DataGrid x:Name="DgRecentTransactions" Grid.Row="1" Background="Transparent" BorderThickness="0" AutoGenerateColumns="False" IsReadOnly="True" RowHeaderWidth="0" GridLinesVisibility="None" SelectionChanged="DgRecentTransactions_SelectionChanged">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="50"/>
+                                                <DataGridTextColumn Header="Покупатель" Binding="{Binding Customer}" Width="*"/>
+                                                <DataGridTextColumn Header="Дата" Binding="{Binding Date}" Width="130"/>
+                                                <DataGridTextColumn Header="Сумма" Binding="{Binding Total}" Width="100"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+
+                                        <Button Grid.Row="2" Content="Показать все покупки" Click="NavigateToTransactions_Click" Background="Transparent" BorderThickness="0" Foreground="#2563EB" FontWeight="Medium" HorizontalAlignment="Left" Margin="0,15,0,0" Cursor="Hand"/>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Правая карточка: Популярные товары -->
+                                <Border Grid.Column="1" Background="White" CornerRadius="12" BorderBrush="#E2E8F0" BorderThickness="1" Margin="10,0,0,0" Padding="20">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Row="0" Text="Популярные товары" FontSize="16" FontWeight="Bold" Foreground="#0F172A" Margin="0,0,0,15"/>
+
+                                        <ListBox x:Name="LbPopularProducts" Grid.Row="1" BorderThickness="0" Background="Transparent">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid Margin="0,6" Width="280">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding Index}" FontWeight="SemiBold" Foreground="#64748B" Width="25"/>
+                                                            <TextBlock Text="{Binding Name}" Foreground="#0F172A" FontWeight="Medium"/>
+                                                        </StackPanel>
+                                                        <TextBlock Text="{Binding SalesCount}" Foreground="#334155" HorizontalAlignment="Right"/>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+
+                                        <Button Grid.Row="2" Content="Показать все товары" Click="NavigateToProducts_Click" Background="Transparent" BorderThickness="0" Foreground="#2563EB" FontWeight="Medium" HorizontalAlignment="Left" Margin="0,15,0,0" Cursor="Hand"/>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </ScrollViewer>
+                </TabItem>
+
+                <!-- ВКЛАДКА 2: ТОВАРЫ -->
+                <TabItem>
+                    <Grid Margin="30">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                            <Button x:Name="BtnAddProduct" Click="AddProduct_Click" Content="Добавить" Background="#10B981" Foreground="White" Width="100" Height="35" Margin="0,0,8,0"/>
+                            <Button x:Name="BtnUpdateProduct" Click="UpdateProduct_Click" Content="Изменить" Background="#F59E0B" Foreground="White" Width="100" Height="35" Margin="0,0,8,0"/>
+                            <Button x:Name="BtnDeleteProduct" Click="DeleteProduct_Click" Content="Удалить" Background="#EF4444" Foreground="White" Width="100" Height="35"/>
+                        </StackPanel>
+                        <DataGrid x:Name="DgProducts" Grid.Row="1" Background="White" 
+                                AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="#E2E8F0"
+                                RowHeaderWidth="0" GridLinesVisibility="Horizontal">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="60"/>
+                                <DataGridTextColumn Header="Название товара" Binding="{Binding Name}" Width="2*"/>
+                                <DataGridTextColumn Header="Категория" Binding="{Binding Category}" Width="1.5*"/>
+                                <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0:N2} ₽}" Width="100"/>
+                                <DataGridTextColumn Header="Остаток" Binding="{Binding Stock}" Width="100"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+
+                <!-- ВКЛАДКА 3: ПОКУПКИ (ОФОРМЛЕНИЕ И ЛИНК) -->
+                <TabItem>
+                    <Grid Margin="30,10,30,30">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="Оформление покупок и умный подбор" FontSize="18" FontWeight="Bold" Foreground="#0F172A" Margin="0,0,0,15"/>
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Левая часть: Таблица подбора -->
+                            <Border Grid.Column="0" Background="White" CornerRadius="12" BorderBrush="#E2E8F0" BorderThickness="1" Margin="0,0,15,0" Padding="20">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" Text="Выберите товар для добавления в чек:" FontSize="15" FontWeight="SemiBold" Foreground="#334155" Margin="0,0,0,12"/>
+
+                                    <DataGrid x:Name="DgTransactionsProducts" Grid.Row="1" Background="Transparent" BorderThickness="0" AutoGenerateColumns="False" IsReadOnly="True" RowHeaderWidth="0" GridLinesVisibility="Horizontal" BorderBrush="#F1F5F9">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="50"/>
+                                            <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="2*"/>
+                                            <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0:N2} ₽}" Width="100"/>
+                                            <DataGridTextColumn Header="Склад" Binding="{Binding Stock}" Width="80"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+
+                                    <Border Grid.Row="2" Background="#2563EB" CornerRadius="8" Height="38" Margin="0,15,0,0">
+                                        <Button x:Name="BtnAddToBasket" Click="AddToBasket_Click" Content="Добавить в чек" Background="Transparent" BorderThickness="0" Foreground="White" FontWeight="Medium" Cursor="Hand"/>
+                                    </Border>
+                                </Grid>
+                            </Border>
+
+                            <!-- Правая часть: Корзина и рекомендации -->
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- ... Корзина ... -->
+                                <Border Grid.Row="0" Background="White" CornerRadius="12" BorderBrush="#E2E8F0" BorderThickness="1" Margin="10,0,0,10" Padding="20">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Row="0" Text="Текущий состав чека" FontSize="15" FontWeight="SemiBold" Foreground="#334155" Margin="0,0,0,12"/>
+
+                                        <ListBox x:Name="LbBasketItems" Grid.Row="1" BorderThickness="0" Background="Transparent"/>
+
+                                        <Grid Grid.Row="2" Margin="0,15,0,0">
+                                            <TextBlock x:Name="TxtBasketTotal" Text="Итого: 0,00 ₽" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Foreground="#0F172A"/>
+                                            <Border HorizontalAlignment="Right" Background="#EF4444" CornerRadius="6">
+                                                <Button x:Name="BtnClearBasket" Click="ClearBasket_Click" Content="Удалить из чека" Background="Transparent" BorderThickness="0" Foreground="White" Padding="15,5" Cursor="Hand"/>
+                                            </Border>
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+
+                                <!-- ... Рекомендации ... -->
+                                <Border Grid.Row="1" Background="#EFF6FF" CornerRadius="12" BorderBrush="#BFDBFE" BorderThickness="1" Margin="10,10,0,0" Padding="15">
+                                    <Grid>
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                                <iconPacks:PackIconMaterial Kind="LightbulbOnOutline" Width="18" Height="18" Foreground="#2563EB" VerticalAlignment="Center"/>
+                                                <TextBlock Text="Smart-Рекомендация" FontSize="14" FontWeight="Bold" Foreground="#1E40AF" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <ScrollViewer VerticalScrollBarVisibility="Auto" Height="80">
+                                                <TextBlock x:Name="TxtSmartRecommendation" Text="Добавьте товары в чек, чтобы запустить автоматический LINQ-анализ рыночной корзины." TextWrapping="Wrap" FontSize="13" Foreground="#1E3A8A" LineHeight="18"/>
+                                            </ScrollViewer>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+
+                <!-- ВКЛАДКА 4: ПОКУПАТЕЛИ -->
+                <TabItem>
+                    <Grid Margin="30">
+                        <TextBlock Text="Управление базой клиентов" FontSize="18" Foreground="#334155"/>
+                    </Grid>
+                </TabItem>
+
+                <!-- ВКЛАДКА 5: НАСТРОЙКИ -->
+                <TabItem>
+                    <Grid Margin="30">
+                        <TextBlock Text="Настройки приложения" FontSize="18" Foreground="#334155"/>
+                    </Grid>
+                </TabItem>
+
+                <!-- ВКЛАДКА 6: О ПРОГРАММЕ -->
+                <TabItem>
+                    <Grid Margin="30">
+                        <TextBlock Text="Программа «Анализ покупательских корзин»." FontSize="16" Foreground="#475569"/>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</Window>
